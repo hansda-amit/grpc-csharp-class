@@ -36,6 +36,15 @@ await channel.ConnectAsync().ContinueWith( async task => {
     {
         Console.WriteLine("Total:{0}", addresponse.Total);
     }
+
+    var request = new GreetManyTimesRequest() { Greeting = new Greeting { FirstName = "Amit" , LastName = "Hansda" } };
+    var manyTimesResponse = client.GreetManyTimes(request);
+    while (await manyTimesResponse.ResponseStream.MoveNext())
+    {
+        Console.WriteLine(manyTimesResponse.ResponseStream.Current.Message);
+        await Task.Delay(150);
+    }
+
     await channel.ShutdownAsync();
 });
 Console.ReadKey();
