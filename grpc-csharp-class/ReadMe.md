@@ -40,7 +40,7 @@ cd client
 ```
 
 ## Notes
-- Ensure the server is running before starting the client.
+- **Ensure** the server is running before starting the client.
 - The `models/` directory in both client and server contains code generated from `dummy.proto`.
 
 ## License
