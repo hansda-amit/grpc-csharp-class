@@ -1,5 +1,7 @@
 ﻿// See https://aka.ms/new-console-template for more information
+using Greet;
 using Grpc.Core;
+using server;
 const int Port = 50051;
 
 Server server = null;
@@ -7,6 +9,7 @@ try
 {
 	server = new Server
 	{
+		Services = { GreetingService.BindService(new GreetingServiceImpl())},
 		Ports = { new ServerPort("localhost", Port, ServerCredentials.Insecure) }
 	};
 
