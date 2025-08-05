@@ -1,4 +1,4 @@
-# gRPC C# Sample Project
+# gRPC C# Sample Project by hansda-amit
 
 This repository demonstrates a gRPC client-server application using C# and .NET 8.0, featuring multiple services for greeting and calculation operations.
 
