@@ -1,4 +1,5 @@
-﻿using Greet;
+﻿using Calculate;
+using Greet;
 using Grpc.Core;
 const string Target = "127.0.0.1:50051";
 
@@ -13,7 +14,7 @@ await channel.ConnectAsync().ContinueWith( async task => {
     }
     //var client = new DummyService.DummyServiceClient(channel);
     var client = new GreetingService.GreetingServiceClient(channel);
-    var response  = await client.GreetAsync(new GreetingRequest
+    var greetResponse  = await client.GreetAsync(new GreetingRequest
     {
         Greeting = new Greeting
         {
@@ -21,9 +22,19 @@ await channel.ConnectAsync().ContinueWith( async task => {
             LastName = "Doe"
         }
     });
-    if(response is not null)
+    if(greetResponse is not null)
     {
-        Console.WriteLine("Message: {0}", response.Message);
+        Console.WriteLine("Message: {0}", greetResponse.Message);
+    }
+    var calculateClient = new CalculateService.CalculateServiceClient(channel);
+    var addresponse = await calculateClient.AddAsync(new AddRequest
+    {
+        FirstNumber = 11.00,
+        SecondNumber = 12.45
+    });
+    if(addresponse is not null)
+    {
+        Console.WriteLine("Total:{0}", addresponse.Total);
     }
     await channel.ShutdownAsync();
 });

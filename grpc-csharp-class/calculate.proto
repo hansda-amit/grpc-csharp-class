@@ -1,0 +1,15 @@
+syntax = "proto3";
+package calculate;
+
+message AddRequest {
+    double first_number = 1;
+    double second_number = 2;
+}
+
+message AddResponse {
+    double total = 1;
+}
+
+service CalculateService {
+    rpc Add (AddRequest) returns (AddResponse){}
+}

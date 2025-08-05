@@ -1,4 +1,5 @@
 ﻿// See https://aka.ms/new-console-template for more information
+using Calculate;
 using Greet;
 using Grpc.Core;
 using server;
@@ -9,7 +10,7 @@ try
 {
 	server = new Server
 	{
-		Services = { GreetingService.BindService(new GreetingServiceImpl())},
+		Services = { GreetingService.BindService(new GreetingServiceImpl()), CalculateService.BindService(new CalculateServiceImpl())},
 		Ports = { new ServerPort("localhost", Port, ServerCredentials.Insecure) }
 	};
 
