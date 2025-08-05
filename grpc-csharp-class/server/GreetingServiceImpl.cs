@@ -14,4 +14,21 @@ public class GreetingServiceImpl : GreetingServiceBase
         };
         return response;
     }
+
+
+    public override async Task GreetManyTimes(GreetManyTimesRequest request, IServerStreamWriter<GreetManyTimesResponse> responseStream, ServerCallContext context)
+    {
+        Console.WriteLine("the service received streaming request");
+        
+        foreach (var i in Enumerable.Range(1,10))
+        {
+            string result = $"hello {request.Greeting.FirstName} {request.Greeting.LastName} {i}";
+
+            await responseStream.WriteAsync(new GreetManyTimesResponse
+            {
+                Message = result
+            });
+        }
+    }
+
 }
