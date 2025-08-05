@@ -22,10 +22,20 @@ message GreetManyTimesResponse {
 	string message = 1;
 }
 
+message DecomposeRequest {
+	int32 number = 1;
+}
+
+message DecomposeResponse {
+	int32 number = 1;
+}
+
+
 service GreetingService{
 	//unary
 	rpc Greet (GreetingRequest) returns (GreetingResponse) {}
 
 	//server streaming
 	rpc GreetManyTimes (GreetManyTimesRequest) returns (stream GreetManyTimesResponse) {}
+	rpc DecomposeToPrime (DecomposeRequest) returns (stream DecomposeResponse) {}
 }

@@ -26,6 +26,17 @@ await channel.ConnectAsync().ContinueWith( async task => {
     {
         Console.WriteLine("Message: {0}", greetResponse.Message);
     }
+    var decomposeResponse = client.DecomposeToPrime(new DecomposeRequest
+    {
+        Number = 120
+    });
+    while (await decomposeResponse.ResponseStream.MoveNext())
+    {
+        Console.WriteLine("Prime factor: {0}", decomposeResponse.ResponseStream.Current.Number);
+        await Task.Delay(150);
+    }
+
+
     var calculateClient = new CalculateService.CalculateServiceClient(channel);
     var addresponse = await calculateClient.AddAsync(new AddRequest
     {
@@ -44,6 +55,9 @@ await channel.ConnectAsync().ContinueWith( async task => {
         Console.WriteLine(manyTimesResponse.ResponseStream.Current.Message);
         await Task.Delay(150);
     }
+
+
+
 
     await channel.ShutdownAsync();
 });
